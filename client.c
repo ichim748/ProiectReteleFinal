@@ -69,6 +69,12 @@ int main(int argc , char * argv[]){
       else if(FD_ISSET(0, &ready_fd)){
         bzero(msg, sizeof(msg));
         fgets(msg, 300, stdin);
+        char temp[300];
+        strcpy(temp, msg);
+        if (strcmp(strtok(temp, "\n"), "Quit") == 0){
+            close(mySocket);
+            exit(0);
+        }
         write(mySocket, msg, 300);
       }
     }

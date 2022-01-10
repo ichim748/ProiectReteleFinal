@@ -548,10 +548,12 @@ void * threadRoutine (void * arg){
             }
             else if (strlen(msg) >3 && strcmp(strtok(msg, "\n"), "Quit") == 0){
                 printf("Unul dintre clienti s-a deconectat. :(\n");
+                close(client);
                 pthread_exit(NULL);
             }
             else{
                 printf("Unul dintre clienti s-a deconectat. :(\n");
+                close(client);
                 pthread_exit(NULL);
             }
         }

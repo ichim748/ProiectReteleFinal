@@ -518,6 +518,7 @@ void * threadRoutine (void * arg){
                 strcpy(mesajAlertaLocal, "accident"); // Pentru a evita afisarea in cadrul acestui thread
                 strcpy(locatieAlertaLocal, locatieActualaPermanenta);
                 pthread_mutex_unlock(&mesajGlobalLock);
+                write(client, "Evenimentul de trafic s-a inregistrat cu succes. Va multumim!\n", 300);
             }
             else if (strlen(msg) >3 && strcmp(strtok(msg, "\n"), "Animale") == 0){
                 printf("Am primit accidentul la locatia %s!\n", locatieActualaPermanenta);
@@ -527,6 +528,7 @@ void * threadRoutine (void * arg){
                 strcpy(mesajAlertaLocal, "animale pe drum"); // Pentru a evita afisarea in cadrul acestui thread
                 strcpy(locatieAlertaLocal, locatieActualaPermanenta);
                 pthread_mutex_unlock(&mesajGlobalLock);
+                write(client, "Evenimentul de trafic s-a inregistrat cu succes. Va multumim!\n", 300);
             }
             else if (strlen(msg) >3 && strcmp(strtok(msg, "\n"), "Radar") == 0){
                 printf("Am primit accidentul la locatia %s!\n", locatieActualaPermanenta);
@@ -536,6 +538,7 @@ void * threadRoutine (void * arg){
                 strcpy(mesajAlertaLocal, "radar"); // Pentru a evita afisarea in cadrul acestui thread
                 strcpy(locatieAlertaLocal, locatieActualaPermanenta);
                 pthread_mutex_unlock(&mesajGlobalLock);
+                write(client, "Evenimentul de trafic s-a inregistrat cu succes. Va multumim!\n", 300);
             }
             else if (strlen(msg) >3 && strcmp(strtok(msg, "\n"), "Groapa") == 0){
                 printf("Am primit accidentul la locatia %s!\n", locatieActualaPermanenta);
@@ -545,11 +548,15 @@ void * threadRoutine (void * arg){
                 strcpy(mesajAlertaLocal, "groapa extrem de periculoasa"); // Pentru a evita afisarea in cadrul acestui thread
                 strcpy(locatieAlertaLocal, locatieActualaPermanenta);
                 pthread_mutex_unlock(&mesajGlobalLock);
+                write(client, "Evenimentul de trafic s-a inregistrat cu succes. Va multumim!\n", 300);
             }
             else if (strlen(msg) >3 && strcmp(strtok(msg, "\n"), "Quit") == 0){
                 printf("Unul dintre clienti s-a deconectat. :(\n");
                 close(client);
                 pthread_exit(NULL);
+            }
+            else if (strlen(msg) >3){
+                write(client, "Comanda nerecunoscuta. Va rugam sa incercati din nou!\n", 300);
             }
             else{
                 printf("Unul dintre clienti s-a deconectat. :(\n");
